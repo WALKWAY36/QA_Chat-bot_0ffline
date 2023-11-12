@@ -2,7 +2,7 @@
 Бесплатный чат бот, который не требует подключения к интернету
 
 Архитектура чат бота:
-<img width="930" alt="SCR-20230917-qbto" src="[Image alt](https://github.com/{WALKWAY36}/QA-Chat-bot-Offline/raw/main/How_do.png)">
+<img width="930" alt="SCR-20230917-qbto" src="How_do.png">
 
 ## Технический стек:
 1. Langchain
