@@ -2,7 +2,7 @@
 Бесплатный чат бот, который не требует подключения к интернету
 
 Архитектура чат бота:
-<img width="930" alt="SCR-20230917-qbto" src="https://github.com/abidsaudagar/Private-Chatbot/assets/20873579/e9c34bae-b697-4f11-b332-886ae298bc2b">
+<img width="930" alt="SCR-20230917-qbto" src="[https://github.com/abidsaudagar/Private-Chatbot/assets/20873579/e9c34bae-b697-4f11-b332-886ae298bc2b](https://github.com/WALKWAY36/QA_Chat-bot_0ffline/blob/main/How_do.png)">
 
 ## Технический стек:
 1. Langchain
