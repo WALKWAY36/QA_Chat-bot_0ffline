@@ -33,35 +33,14 @@ if not load_dotenv():
 from constants import CHROMA_SETTINGS
 import chromadb
 
+
+
 # Load environment variables
 persist_directory = os.environ.get('PERSIST_DIRECTORY')
 source_directory = os.environ.get('SOURCE_DIRECTORY', 'source_documents')
 embeddings_model_name = os.environ.get('EMBEDDINGS_MODEL_NAME')
 chunk_size = 500
 chunk_overlap = 50
-
-
-# Custom document loaders
-# class MyElmLoader(UnstructuredEmailLoader):
-#     """Wrapper to fallback to text/plain when default does not work"""
-
-#     def load(self) -> List[Document]:
-#         """Wrapper adding fallback for elm without html"""
-#         try:
-#             try:
-#                 doc = UnstructuredEmailLoader.load(self)
-#             except ValueError as e:
-#                 if 'text/html content not found in email' in str(e):
-#                     # Try plain text
-#                     self.unstructured_kwargs["content_source"]="text/plain"
-#                     doc = UnstructuredEmailLoader.load(self)
-#                 else:
-#                     raise
-#         except Exception as e:
-#             # Add file_path to exception message
-#             raise type(e)(f"{self.file_path}: {e}") from e
-
-#         return doc
 
 
 # Map file extensions to document loaders and their arguments
@@ -127,9 +106,11 @@ def process_documents(ignored_files: List[str] = []) -> List[Document]:
         print("No new documents to load")
         exit(0)
     print(f"Loaded {len(documents)} new documents from {source_directory}")
+
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     texts = text_splitter.split_documents(documents)
     print(f"Split into {len(texts)} chunks of text (max. {chunk_size} tokens each)")
+
     return texts
 
 def does_vectorstore_exist(persist_directory: str, embeddings: HuggingFaceEmbeddings) -> bool:

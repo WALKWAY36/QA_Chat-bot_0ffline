@@ -9,6 +9,16 @@ import chromadb
 import os
 import argparse
 import time
+from translate import Translator
+
+def translate_to_english(text_to_translate):
+    translator = Translator(from_lang="ru", to_lang="en")
+    translation = translator.translate(text_to_translate)
+    return translation
+def translate_to_russia(text_to_translate):
+    translator = Translator(from_lang="en", to_lang="ru")
+    translation = translator.translate(text_to_translate)
+    return translation
 
 if not load_dotenv():
     print("Could not load .env file or it is empty. Please check if it exists and is readable.")
@@ -47,7 +57,10 @@ def main():
     qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, return_source_documents= not args.hide_source)
     # Interactive questions and answers
     while True:
-        query = input("\nEnter a query: ")
+        query = input("\nПожалуйста, задайте мне вопрос: ")
+        query = translate_to_english(query) + '?'
+        print(query)
+        print('Запрос может занять несколько минут...')
         if query == "exit":
             break
         if query.strip() == "":
@@ -60,15 +73,15 @@ def main():
         end = time.time()
 
         # Print the result
-        print("\n\n> Question:")
+        print("\n\n> Вопрос:")
         print(query)
-        print(f"\n> Answer (took {round(end - start, 2)} s.):")
-        print(answer)
+        print(f"\n> Ответ (поиск занял {round(end - start, 2)} s.):")
+        print(translate_to_russia(answer))
 
         # Print the relevant sources used for the answer
-        for document in docs:
-            print("\n> " + document.metadata["source"] + ":")
-            print(document.page_content)
+     #   for document in docs:
+      #      print("\n> " + document.metadata["source"] + ":")
+     #       print(document.page_content)
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='privateGPT: Ask questions to your documents without an internet connection, '
